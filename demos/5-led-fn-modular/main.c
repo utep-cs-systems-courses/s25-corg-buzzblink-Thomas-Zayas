@@ -43,11 +43,11 @@ void oncePerSecond() // repeatedly start bright and gradually lower duty cycle, 
     blinkLimit = 0;
 }
 
-void secondUpdate()  // called every 1/250 sec to call oncePerSecond once per second
+void secondUpdate()  // called every 1/250 sec
 {
-  static int secondCount = 0; // state variable representing repeating time 0…1s
+  static int secondCount = 0; // counts up to 250 to know the second
   secondCount ++;
-  if (secondCount >= 250) { // once each second
+  if (secondCount >= 250) {
     secondCount = 0;
     oncePerSecond();
   } }

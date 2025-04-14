@@ -5,7 +5,7 @@
 
 int main(void) {
   P1DIR |= LEDS;
-  P1OUT &= ~LED_GREEN;
+  P1OUT |= LED_GREEN;
   P1OUT |= LED_RED;
 
   configureClocks();		/* setup master oscillator, CPU & peripheral clocks */
@@ -14,10 +14,14 @@ int main(void) {
   or_sr(0x18);		/* CPU off, GIE on */
 }
 
-
+int count = 0;
 void
 __interrupt_vec(WDT_VECTOR) WDT()	/* 250 interrupts/sec */
 {
-  P1OUT |= LED_GREEN;
+  if(count >= 250){
+    P1OUT ^= LED_RED;
+    count =0;
+  }
+  count++;
 } 
 
